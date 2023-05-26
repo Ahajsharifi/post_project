@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post_dict.title }}
+</title>
+</head>
+<body>
+{{ post_dict.body }}
+</body>
+</html>
+
+<div class="comment_body">
+    <h3>نظرات</h3>
+
+    <hr>
+        {% for comment in post_comment %}
+            <div>
+                <small>{{comment.user}} {{comment.created|timesince}} ago</small>
+                <p>{{comment.body}}</p>
+                <hr>
+
+            </div>
+        {% endfor %}
+</div>
+
+
+{% if request.user.is_authenticated %}
+<div class="comment_form">
+    <form method="POST" action="">
+            {% csrf_token %}
+            <input type="text" name = "body" placeholder="Write your comment here ">
+    </form>
+</div>
+{% endif %}
